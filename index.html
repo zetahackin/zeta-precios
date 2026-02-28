@@ -241,16 +241,16 @@ let currentRegion=null;
 
 const DB = {
  paises:[
-    {n:"ARGENTINA",b:"🇦🇷",t:1500,c:"ARS"},
-    {n:"BOLIVIA",b:"🇧🇴",t:12,c:"BS"},
-    {n:"CHILE",b:"🇨🇱",t:970,c:"CLP"},
-    {n:"COLOMBIA",b:"🇨🇴",t:3900,c:"COP"},
-    {n:"ECUADOR",b:"🇪🇨",t:1,c:"USD"},
-    {n:"GUATEMALA",b:"🇬🇹",t:7.8,c:"GTQ"},
-    {n:"MEXICO",b:"🇲🇽",t:18,c:"MXN"},
-    {n:"USA / GLOBAL",b:"🇺🇸",t:1,c:"USD"},
-    {n:"VENEZUELA",b:"🇻🇪",t:550,c:"VES"},  
-    {n:"ESPAÑA",b:"🇪🇸",t:1,c:"EUR"}      
+    {n:"ARGENTINA",b:"????",t:1500,c:"ARS"},
+    {n:"BOLIVIA",b:"????",t:12,c:"BS"},
+    {n:"CHILE",b:"????",t:970,c:"CLP"},
+    {n:"COLOMBIA",b:"????",t:3900,c:"COP"},
+    {n:"ECUADOR",b:"????",t:1,c:"USD"},
+    {n:"GUATEMALA",b:"????",t:7.8,c:"GTQ"},
+    {n:"MEXICO",b:"????",t:18,c:"MXN"},
+    {n:"USA / GLOBAL",b:"????",t:1,c:"USD"},
+    {n:"VENEZUELA",b:"????",t:550,c:"VES"},  
+    {n:"ESPA?A",b:"????",t:1,c:"EUR"}      
 ],
 
   items:[
@@ -266,31 +266,45 @@ const DB = {
 };
 
 const PAYMENT_DB = {
-  "CHILE": [
-    "🏪 Banco Estado (Caja Vecina) (💵 EFECTIVO)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n💡 CAJA VECINA - Depósito en efectivo",
-    "🟢 Banco Estado (Transferencia) (🏦 TRANSFERENCIA)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n💡 TRANSFERENCIA BANCARIA"
+  "ARGENTINA": [
+    "SE PUEDE POR LOS BANCOS",
+    "Mercado Pago",
+    "Transferencia CBU / Alias",
+    "?? Ual¨¢ (?? TRANSFERENCIA)\nCVU: 3840200500000004847243\nAlias: elestu.mp\n?? Transferencia UALA (D¨®lar a 1500)"
   ],
 
-  "ESPAÑA": [
-    "💶 Bizum (🏦 TRANSFERENCIA)\nNúmero: 614373778 | Nombre del Titular: Pedro Augusto Sabino Barba\n💡 Pago por Bizum (Euro = Dólar 1:1)"
+  "CHILE": [
+    "?? Banco Estado (Caja Vecina) (?? EFECTIVO)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n?? CAJA VECINA - Dep¨®sito en efectivo",
+    "?? Banco Estado (Transferencia) (?? TRANSFERENCIA)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n?? TRANSFERENCIA BANCARIA"
+  ],
+
+  "VENEZUELA": [
+    "?? Pago M¨®vil (?? EFECTIVO)\nPago m¨®vil:\nC¨¦dula: V08110352\nTel¨¦fono: 04267319799\nBanco: 0102 - Banco de Venezuela\n?? Pago m¨®vil interbancario (D¨®lar a 550 Bs)"
+  ],
+
+  "ESPA?A": [
+    "?? Bizum (?? TRANSFERENCIA)\nN¨²mero: 614373778 | Nombre del Titular: Pedro Augusto Sabino Barba\n?? Pago por Bizum (Euro = D¨®lar 1:1)"
+  ],
+
+  "COLOMBIA": [
+    "?? Bancolombia (?? TRANSFERENCIA)\nN¡㠃uenta: 3300000689\nTitular: Kenyareth Romero\n?? Transferencia Ahorros Bancolombia",
+    "?? Nequi (?? EFECTIVO)\nNequi: 3024637929\nTitular: Kenyareth Romero\n?? Env¨ªa dinero por Nequi"
   ],
 
   "ECUADOR": [
-    "🟨 Banco Pichincha (🏦 TRANSFERENCIA)\nC.I.: 0107335879\nN° Cuenta: 2212984217\nPropietario: JUAN IVAN TENEMPAGUAY ORTIS\n💡 Transferencia Cuenta Ahorro Transaccional"
+    "?? Banco Pichincha (?? TRANSFERENCIA)\nC.I.: 0107335879\nN¡㠃uenta: 2212984217\nPropietario: JUAN IVAN TENEMPAGUAY ORTIS\n?? Transferencia Cuenta Ahorro Transaccional"
   ],
 
   "BINANCE": [
-    "💰 BINANCE (🪪 ID BINANCE)\n1206645902\nNombre Titular: zeta cripto"
+    "?? BINANCE (?? ID BINANCE)\n1206645902\nNombre Titular: zeta cripto"
   ],
 
-  "GUATEMALA": [
-    "🟩 Banrural (🏦 TRANSFERENCIA)\n📋 N° Cuenta: 3019035980\n👤 Nombre De La Propietaria: Yodalmo Alexander Zúñiga Zavaleta\n💡 Transferencia Banrural"
-  ],
-
-  "PAYPAL": [
-    "🟩 PAYPAL\n📋 Nombre: @zeta cripto\n👤 Correo: recuperacionzeta@gmail.com\n💡 Link directo: https://www.paypal.com/paypalme/zetacripto"
-  ]
-
+"GUATEMALA": [
+  "?? Banrural (?? TRANSFERENCIA)\n" +
+  "?? N¡㠃uenta: 3019035980\n" +
+  "?? Nombre De La Propietaria: Yodalmo Alexander Z¨²?iga Zavaleta\n" +
+  "?? Transferencia Banrural"
+]
 };
 
 /* -- FUNCIONES -- */
@@ -330,7 +344,7 @@ DB.items.forEach(item=>{
 
   item.d.forEach((days,i)=>{
     let price = item.p[i] * country.t;
-    html += `<div class="price-line">${days} DÍAS → <b>${price.toLocaleString()} ${country.c}</b></div>`;
+    html += `<div class="price-line">${days} D¨ªAS ¡ú <b>${price.toLocaleString()} ${country.c}</b></div>`;
   });
 
   let safeId = item.n.replace(/\s+/g,'-') + "-" + country.n.replace(/\s+/g,'-');
@@ -343,7 +357,7 @@ DB.items.forEach(item=>{
       <i class="fa-brands fa-whatsapp"></i> WHATSAPP
       </button>
   </div>
-  <div class="success-msg" id="msg-${safeId}">✓ COPIADO</div>
+  <div class="success-msg" id="msg-${safeId}">? COPIADO</div>
   `;
 
   html += `</div>`;
@@ -368,7 +382,7 @@ let item = DB.items.find(i=>i.n===itemName);
 let text = `PRECIOS ${item.n} EN ${country.n}:\n`;
 item.d.forEach((days,i)=>{
     let price = item.p[i] * country.t;
-    text += `${days} DÍAS → ${price.toLocaleString()} ${country.c}\n`;
+    text += `${days} D¨ªAS ¡ú ${price.toLocaleString()} ${country.c}\n`;
 });
 return text;
 }
@@ -410,11 +424,13 @@ let html=`<h2><i class="fa-solid fa-wallet"></i> METODOS DE PAGO</h2><div class=
 for(let country in PAYMENT_DB){
 let safeId=country.replace(/\s+/g,'-');
 html+=`<div class="prod-card">
-<h3>🌎 ${country}</h3>`;
+<h3>?? ${country}</h3>`;
 
 PAYMENT_DB[country].forEach(m=>{
 if(m===""){html+=`<br>`;}
-else{html+=`<div style="margin-bottom:6px;">${m}</div>`;}
+else{
+html+=`<div style="margin-bottom:6px;">${m.replace(/\n/g,"<br>")}</div>`;
+}
 });
 
 html+=`
@@ -426,7 +442,7 @@ html+=`
 <i class="fa-brands fa-whatsapp"></i> WHATSAPP
 </button>
 </div>
-<div class="success-msg" id="pay-${safeId}">✓ COPIADO</div>
+<div class="success-msg" id="pay-${safeId}">? COPIADO</div>
 </div>`;
 }
 
@@ -461,11 +477,13 @@ return text;
 function copyPayments(country){
 playClick();
 let text=buildPaymentText(country);
-navigator.clipboard.writeText(text);
+
+navigator.clipboard.writeText(text).then(()=>{
 let safeId=country.replace(/\s+/g,'-');
 let msg=document.getElementById("pay-"+safeId);
 msg.style.opacity="1";
 setTimeout(()=>msg.style.opacity="0",2000);
+});
 }
 
 function sharePayments(country){
@@ -478,6 +496,3 @@ window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
 
 </body>
 </html>
-
-
-
