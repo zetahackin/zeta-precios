@@ -29,7 +29,6 @@ font-family:'JetBrains Mono',monospace;
 overflow-x:hidden;
 }
 
-/* PARTICLES */
 #particles-js{
 position:fixed;
 width:100%;
@@ -39,7 +38,6 @@ left:0;
 z-index:-1;
 }
 
-/* HEADER */
 header{
 padding:40px 20px;
 border-bottom:2px solid var(--border);
@@ -62,7 +60,6 @@ from{ text-shadow:0 0 10px var(--p);}
 to{ text-shadow:0 0 40px var(--p),0 0 70px var(--p);}
 }
 
-/* BUTTONS */
 .big-buttons{
 display:flex;
 flex-direction:column;
@@ -105,7 +102,6 @@ box-shadow:0 0 25px var(--p);
 transform:scale(1.05);
 }
 
-/* CARDS */
 .container{max-width:1300px;margin:auto;padding:40px 20px;}
 
 .grid-nodes,.grid-prods{
@@ -164,26 +160,16 @@ margin-top:8px;
 transition:0.3s;
 }
 
-/* FADE ANIMATION */
-.fade{
-animation:fadeIn 0.6s ease;
-}
+.fade{animation:fadeIn 0.6s ease;}
 @keyframes fadeIn{
 from{opacity:0;transform:translateY(20px);}
 to{opacity:1;transform:translateY(0);}
 }
 
-/* OPTIMIZACION MOVILES */
 @media (max-width: 768px) {
-  .node-card:hover, .prod-card:hover {
-    transform: none;
-    box-shadow:0 0 10px var(--p);
-  }
-  .btn:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 15px var(--p);
-  }
-  .fade {animation:none;}
+.node-card:hover,.prod-card:hover{transform:none;box-shadow:0 0 10px var(--p);}
+.btn:hover{transform:scale(1.02);box-shadow:0 0 15px var(--p);}
+.fade{animation:none;}
 }
 </style>
 </head>
@@ -197,7 +183,6 @@ to{opacity:1;transform:translateY(0);}
 </header>
 
 <div class="container">
-
 <div id="view-home" class="fade">
 <div class="big-buttons">
 <button class="btn" onclick="playClick();showRegions()">
@@ -211,288 +196,181 @@ to{opacity:1;transform:translateY(0);}
 </div>
 
 <div id="view-store" style="display:none;"></div>
-
 </div>
 
 <script>
 
-/* SONIDO FUTURISTA */
 function playClick(){
 let audio=new Audio("https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3");
 audio.volume=0.3;
 audio.play();
 }
 
-/* PARTICLES OPTIMIZADOS */
 let particleCount = window.innerWidth < 768 ? 30 : 80;
-tsParticles.load("particles-js",{
+
+tsParticles.load("particles-js", {
 fullScreen:{enable:false},
 particles:{
-number:{value: particleCount},
+number:{value:particleCount},
 color:{value:"#00ff41"},
 links:{enable:true,color:"#00ff41",distance:150,opacity:0.4},
-move:{enable:true,speed: window.innerWidth < 768 ? 1 : 1.5},
-size:{value:{min:1,max: window.innerWidth < 768 ? 3 : 4}},
-opacity:{value: window.innerWidth < 768 ? 0.5 : 0.6}
+move:{enable:true,speed:window.innerWidth<768?1:1.5},
+size:{value:{min:1,max:window.innerWidth<768?3:4}},
+opacity:{value:window.innerWidth<768?0.5:0.6}
 }
 });
 
-let currentRegion=null;
-
-const DB = {
- paises:[
-    {n:"ARGENTINA",b:"????",t:1500,c:"ARS"},
-    {n:"BOLIVIA",b:"????",t:12,c:"BS"},
-    {n:"CHILE",b:"????",t:970,c:"CLP"},
-    {n:"COLOMBIA",b:"????",t:3900,c:"COP"},
-    {n:"ECUADOR",b:"????",t:1,c:"USD"},
-    {n:"GUATEMALA",b:"????",t:7.8,c:"GTQ"},
-    {n:"MEXICO",b:"????",t:18,c:"MXN"},
-    {n:"USA / GLOBAL",b:"????",t:1,c:"USD"},
-    {n:"VENEZUELA",b:"????",t:550,c:"VES"},  
-    {n:"ESPA?A",b:"????",t:1,c:"EUR"}      
+const DB={
+paises:[
+{n:"ARGENTINA",b:"🇦🇷",t:1500,c:"ARS"},
+{n:"BOLIVIA",b:"🇧🇴",t:12,c:"BS"},
+{n:"CHILE",b:"🇨🇱",t:970,c:"CLP"},
+{n:"COLOMBIA",b:"🇨🇴",t:3900,c:"COP"},
+{n:"ECUADOR",b:"🇪🇨",t:1,c:"USD"},
+{n:"GUATEMALA",b:"🇬🇹",t:7.8,c:"GTQ"},
+{n:"MEXICO",b:"🇲🇽",t:18,c:"MXN"},
+{n:"USA / GLOBAL",b:"🇺🇸",t:1,c:"USD"},
+{n:"VENEZUELA",b:"🇻🇪",t:550,c:"VES"},
+{n:"ESPAÑA",b:"🇪🇸",t:1,c:"EUR"}
 ],
-
-  items:[
-    {n:"DRIP CLIENT MOBILE NO ROOT",d:[1,7,15,30],p:[3,8,13,19]},
-    {n:"DRIP CLIENT MOBILE ROOT",d:[1,7,15,30],p:[3,8,13,19]},
-	{n:"HG CHEATS ROOT Y NO ROOT",d:[1,10,30],p:[3,12,20]},
-	{n:"STRICK BR ROOT",d:[1,7,15,30],p:[3,8,13,19]},
-	{n:"BR MODS ROOT",d:[1,7,15,30],p:[3,8,13,19]},
-	{n:"FLOURITE",d:[1,7,30],p:[5,15,28]},
-	{n:"FLOURITE Y GBOX",d:[1,7,30],p:[15,25,38]},
-	{n:"GBOX",d:[365],p:[10]}
-  ]
-};
-
-const PAYMENT_DB = {
-  "ARGENTINA": [
-    "SE PUEDE POR LOS BANCOS",
-    "Mercado Pago",
-    "Transferencia CBU / Alias",
-    "?? Ual¨¢ (?? TRANSFERENCIA)\nCVU: 3840200500000004847243\nAlias: elestu.mp\n?? Transferencia UALA (D¨®lar a 1500)"
-  ],
-
-  "CHILE": [
-    "?? Banco Estado (Caja Vecina) (?? EFECTIVO)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n?? CAJA VECINA - Dep¨®sito en efectivo",
-    "?? Banco Estado (Transferencia) (?? TRANSFERENCIA)\nTitular: LIDIA CUETO | RUT: 28.923.608-2 | CuentaRUT: 28923608\n?? TRANSFERENCIA BANCARIA"
-  ],
-
-  "VENEZUELA": [
-    "?? Pago M¨®vil (?? EFECTIVO)\nPago m¨®vil:\nC¨¦dula: V08110352\nTel¨¦fono: 04267319799\nBanco: 0102 - Banco de Venezuela\n?? Pago m¨®vil interbancario (D¨®lar a 550 Bs)"
-  ],
-
-  "ESPA?A": [
-    "?? Bizum (?? TRANSFERENCIA)\nN¨²mero: 614373778 | Nombre del Titular: Pedro Augusto Sabino Barba\n?? Pago por Bizum (Euro = D¨®lar 1:1)"
-  ],
-
-  "COLOMBIA": [
-    "?? Bancolombia (?? TRANSFERENCIA)\nN¡㠃uenta: 3300000689\nTitular: Kenyareth Romero\n?? Transferencia Ahorros Bancolombia",
-    "?? Nequi (?? EFECTIVO)\nNequi: 3024637929\nTitular: Kenyareth Romero\n?? Env¨ªa dinero por Nequi"
-  ],
-
-  "ECUADOR": [
-    "?? Banco Pichincha (?? TRANSFERENCIA)\nC.I.: 0107335879\nN¡㠃uenta: 2212984217\nPropietario: JUAN IVAN TENEMPAGUAY ORTIS\n?? Transferencia Cuenta Ahorro Transaccional"
-  ],
-
-  "BINANCE": [
-    "?? BINANCE (?? ID BINANCE)\n1206645902\nNombre Titular: zeta cripto"
-  ],
-
-"GUATEMALA": [
-  "?? Banrural (?? TRANSFERENCIA)\n" +
-  "?? N¡㠃uenta: 3019035980\n" +
-  "?? Nombre De La Propietaria: Yodalmo Alexander Z¨²?iga Zavaleta\n" +
-  "?? Transferencia Banrural"
+items:[
+{n:"DRIP CLIENT MOBILE NO ROOT",d:[1,7,15,30],p:[3,8,13,19]},
+{n:"DRIP CLIENT MOBILE ROOT",d:[1,7,15,30],p:[3,8,13,19]},
+{n:"HG CHEATS ROOT Y NO ROOT",d:[1,10,30],p:[3,12,20]},
+{n:"STRICK BR ROOT",d:[1,7,15,30],p:[3,8,13,19]},
+{n:"BR MODS ROOT",d:[1,7,15,30],p:[3,8,13,19]},
+{n:"FLOURITE",d:[1,7,30],p:[5,15,28]},
+{n:"FLOURITE Y GBOX",d:[1,7,30],p:[15,25,38]},
+{n:"GBOX",d:[365],p:[10]}
 ]
 };
 
-/* -- FUNCIONES -- */
+const PAYMENT_DB={
+"ARGENTINA":["SE PUEDE POR LOS BANCOS","Mercado Pago","Transferencia CBU / Alias"],
+"CHILE":["Banco Estado (TRANSFERENCIA)"],
+"VENEZUELA":["Pago Móvil (Banco de Venezuela)"],
+"ESPAÑA":["Bizum (TRANSFERENCIA)"],
+"COLOMBIA":["Bancolombia","Nequi"],
+"ECUADOR":["Banco Pichincha"],
+"GUATEMALA":["Banrural"],
+"BINANCE":["BINANCE ID 1206645902"]
+};
+
 function showRegions(){
-playClick();
 document.getElementById("view-home").style.display="none";
 let container=document.getElementById("view-store");
 container.style.display="block";
 container.className="fade";
 
-let html=`<h2><i class="fa-solid fa-earth-americas"></i> SELECCIONA REGION</h2><div class="grid-nodes">`;
+let html=`<h2>SELECCIONA REGION</h2><div class="grid-nodes">`;
 
 DB.paises.forEach((p,index)=>{
-  html+=`
-  <div class="node-card" onclick="showCountryItems(${index})">
-    <span style="font-size:3rem;">${p.b}</span>
-    <b>${p.n}</b>
-  </div>`;
+html+=`<div class="node-card" onclick="showCountryItems(${index})">
+<span style="font-size:3rem;">${p.b}</span><b>${p.n}</b></div>`;
 });
 
-html+=`</div><br><button class="btn" onclick="goHome()"><i class="fa-solid fa-arrow-left"></i> VOLVER</button>`;
+html+=`</div><br><button class="btn" onclick="goHome()">VOLVER</button>`;
 container.innerHTML=html;
 }
 
 function showCountryItems(index){
-playClick();
-let country = DB.paises[index];
-let container = document.getElementById("view-store");
-container.style.display="block";
+let country=DB.paises[index];
+let container=document.getElementById("view-store");
 container.className="fade";
 
-let html = `<h2><i class="fa-solid fa-tags"></i> PRECIOS EN ${country.n}</h2><div class="grid-prods">`;
+let html=`<h2>PRECIOS EN ${country.n}</h2><div class="grid-prods">`;
 
 DB.items.forEach(item=>{
-  html += `<div class="prod-card">
-    <h3>${item.n}</h3>`;
-
-  item.d.forEach((days,i)=>{
-    let price = item.p[i] * country.t;
-    html += `<div class="price-line">${days} D¨ªAS ¡ú <b>${price.toLocaleString()} ${country.c}</b></div>`;
-  });
-
-  let safeId = item.n.replace(/\s+/g,'-') + "-" + country.n.replace(/\s+/g,'-');
-  html += `
-  <div class="action-group">
-      <button class="btn" onclick="copyCountryItem('${item.n}',${index})">
-      <i class="fa-solid fa-copy"></i> COPIAR
-      </button>
-      <button class="btn" onclick="shareCountryItem('${item.n}',${index})">
-      <i class="fa-brands fa-whatsapp"></i> WHATSAPP
-      </button>
-  </div>
-  <div class="success-msg" id="msg-${safeId}">? COPIADO</div>
-  `;
-
-  html += `</div>`;
+html+=`<div class="prod-card"><h3>${item.n}</h3>`;
+item.d.forEach((days,i)=>{
+let price=item.p[i]*country.t;
+html+=`<div class="price-line">${days} DÍAS → <b>${price.toLocaleString()} ${country.c}</b></div>`;
+});
+let safeId=item.n.replace(/\s+/g,'-')+"-"+country.n.replace(/\s+/g,'-');
+html+=`<div class="action-group">
+<button class="btn" onclick="copyCountryItem('${item.n}',${index})">COPIAR</button>
+<button class="btn" onclick="shareCountryItem('${item.n}',${index})">WHATSAPP</button>
+</div>
+<div class="success-msg" id="msg-${safeId}">✓ COPIADO</div></div>`;
 });
 
-html += `</div><br>
-<div style="text-align:center; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-  <button class="btn" onclick="showRegions()">
-    <i class="fa-solid fa-arrow-left"></i> VOLVER
-  </button>
-  <button class="btn" onclick="goHome()">
-    <i class="fa-solid fa-house"></i> VOLVER AL INICIO
-  </button>
-</div>`;
-
-container.innerHTML = html;
+html+=`</div><br><button class="btn" onclick="showRegions()">VOLVER</button>`;
+container.innerHTML=html;
 }
 
-function buildItemText(itemName, countryIndex){
-let country = DB.paises[countryIndex];
-let item = DB.items.find(i=>i.n===itemName);
-let text = `PRECIOS ${item.n} EN ${country.n}:\n`;
+function buildItemText(itemName,index){
+let country=DB.paises[index];
+let item=DB.items.find(i=>i.n===itemName);
+let text=`PRECIOS ${item.n} EN ${country.n}:\n`;
 item.d.forEach((days,i)=>{
-    let price = item.p[i] * country.t;
-    text += `${days} D¨ªAS ¡ú ${price.toLocaleString()} ${country.c}\n`;
+let price=item.p[i]*country.t;
+text+=`${days} DÍAS → ${price.toLocaleString()} ${country.c}\n`;
 });
 return text;
 }
 
-function copyCountryItem(itemName, countryIndex){
-playClick();
-let text = buildItemText(itemName, countryIndex);
-
-let textarea = document.createElement("textarea");
-textarea.value = text;
-document.body.appendChild(textarea);
-textarea.select();
-textarea.setSelectionRange(0, 99999);
-
-document.execCommand("copy");
-document.body.removeChild(textarea);
-
-let safeId = itemName.replace(/\s+/g,'-') + "-" + DB.paises[countryIndex].n.replace(/\s+/g,'-');
-let msg = document.getElementById("msg-"+safeId);
+function copyCountryItem(itemName,index){
+let text=buildItemText(itemName,index);
+navigator.clipboard.writeText(text);
+let safeId=itemName.replace(/\s+/g,'-')+"-"+DB.paises[index].n.replace(/\s+/g,'-');
+let msg=document.getElementById("msg-"+safeId);
 msg.style.opacity="1";
 setTimeout(()=>msg.style.opacity="0",2000);
 }
 
-function shareCountryItem(itemName, countryIndex){
-playClick();
-let text = buildItemText(itemName, countryIndex);
+function shareCountryItem(itemName,index){
+let text=buildItemText(itemName,index);
 window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
 }
 
 function showPayments(){
-playClick();
 document.getElementById("view-home").style.display="none";
 let container=document.getElementById("view-store");
 container.style.display="block";
 container.className="fade";
 
-let html=`<h2><i class="fa-solid fa-wallet"></i> METODOS DE PAGO</h2><div class="grid-prods">`;
+let html=`<h2>METODOS DE PAGO</h2><div class="grid-prods">`;
 
 for(let country in PAYMENT_DB){
 let safeId=country.replace(/\s+/g,'-');
-html+=`<div class="prod-card">
-<h3>?? ${country}</h3>`;
-
+html+=`<div class="prod-card"><h3>${country}</h3>`;
 PAYMENT_DB[country].forEach(m=>{
-if(m===""){html+=`<br>`;}
-else{
-html+=`<div style="margin-bottom:6px;">${m.replace(/\n/g,"<br>")}</div>`;
-}
+html+=`<div>${m}</div>`;
 });
-
-html+=`
-<div class="action-group">
-<button class="btn" onclick="copyPayments('${country}')">
-<i class="fa-solid fa-copy"></i> COPIAR
-</button>
-<button class="btn" onclick="sharePayments('${country}')">
-<i class="fa-brands fa-whatsapp"></i> WHATSAPP
-</button>
+html+=`<div class="action-group">
+<button class="btn" onclick="copyPayments('${country}')">COPIAR</button>
+<button class="btn" onclick="sharePayments('${country}')">WHATSAPP</button>
 </div>
-<div class="success-msg" id="pay-${safeId}">? COPIADO</div>
-</div>`;
+<div class="success-msg" id="pay-${safeId}">✓ COPIADO</div></div>`;
 }
 
-html+=`</div><br>
-<div style="text-align:center; display:flex; gap:15px; justify-content:center; flex-wrap:wrap;">
-<button class="btn" onclick="goHome()">
-<i class="fa-solid fa-arrow-left"></i> VOLVER
-</button>
-<button class="btn" onclick="goHome()" style="border:1px solid #00ff41; box-shadow:0 0 15px #00ff41;">
-<i class="fa-solid fa-house"></i> VOLVER AL INICIO
-</button>
-</div>`;
-
+html+=`</div><br><button class="btn" onclick="goHome()">VOLVER</button>`;
 container.innerHTML=html;
 }
 
-function goHome(){
-playClick();
-document.getElementById("view-store").style.display="none";
-document.getElementById("view-home").style.display="block";
-}
-
 function buildPaymentText(country){
-let text="";
-PAYMENT_DB[country].forEach(m=>{
-if(m===""){text+="\n";}
-else{text+=m+"\n";}
-});
-return text;
+return PAYMENT_DB[country].join("\n");
 }
 
 function copyPayments(country){
-playClick();
-let text=buildPaymentText(country);
-
-navigator.clipboard.writeText(text).then(()=>{
+navigator.clipboard.writeText(buildPaymentText(country));
 let safeId=country.replace(/\s+/g,'-');
 let msg=document.getElementById("pay-"+safeId);
 msg.style.opacity="1";
 setTimeout(()=>msg.style.opacity="0",2000);
-});
 }
 
 function sharePayments(country){
-playClick();
-let text=buildPaymentText(country);
-window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+window.open("https://wa.me/?text="+encodeURIComponent(buildPaymentText(country)),"_blank");
+}
+
+function goHome(){
+document.getElementById("view-store").style.display="none";
+document.getElementById("view-home").style.display="block";
 }
 
 </script>
 
 </body>
 </html>
+
