@@ -185,13 +185,23 @@ to{opacity:1;transform:translateY(0);}
 <div class="container">
 <div id="view-home" class="fade">
 <div class="big-buttons">
+
+<button class="btn" onclick="playClick();showStreaming()">
+<i class="fa-solid fa-tv"></i> PRECIOS ACTUALES DE CUENTAS STREAMING
+</button>
+
+<button class="btn" onclick="playClick();showDiamonds()">
+<i class="fa-solid fa-gem"></i> PRECIOS ACTUALES DE LOS DIAMANTES
+</button>
+
 <button class="btn" onclick="playClick();showRegions()">
-<i class="fa-solid fa-globe"></i> VER PRECIOS ACTUALES DE HOY
+<i class="fa-solid fa-globe"></i> PRECIOS ACTUALES DE PANELES FF
 </button>
 
 <button class="btn" onclick="playClick();showPayments()">
-<i class="fa-solid fa-credit-card"></i> METODOS DE PAGO DISPONIBLES
+<i class="fa-solid fa-credit-card"></i> METODOS DE PAGO DISPONIBLES INTERNACIONAL
 </button>
+
 </div>
 </div>
 
@@ -222,8 +232,8 @@ opacity:{value:window.innerWidth<768?0.5:0.6}
 
 const DB={
 paises:[
-{n:"ARGENTINA",b:"🇦🇷",t:1400,c:"ARS"},
-{n:"BOLIVIA",b:"🇧🇴",t:12,c:"BS"},
+{n:"ARGENTINA",b:"🇦🇷",t:1300,c:"ARS"},
+{n:"BOLIVIA",b:"🇧🇴",t:9.8,c:"BS"},
 {n:"CHILE",b:"🇨🇱",t:980,c:"CLP"},
 {n:"COLOMBIA",b:"🇨🇴",t:3900,c:"COP"},
 {n:"ECUADOR",b:"🇪🇨",t:1,c:"USD"},
@@ -231,11 +241,15 @@ paises:[
 {n:"MEXICO",b:"🇲🇽",t:18,c:"MXN"},
 {n:"USA / GLOBAL",b:"🇺🇸",t:1,c:"USD"},
 {n:"VENEZUELA",b:"🇻🇪",t:550,c:"VES"},
+{n:"PERU",b:"PE",t:2,c:"SOL"},
 {n:"ESPAÑA",b:"🇪🇸",t:1,c:"EUR"}
 ],
 items:[
-{n:"DRIP CLIENT MOBILE NO ROOT",d:[1,7,15,30],p:[4,9,14,20]},
-{n:"DRIP CLIENT MOBILE ROOT",d:[1,7,15,30],p:[4,9,14,20]},
+{n:"BR MODS MOBILE (ROOT)",d:[1,7,15,30],p:[3,8,12,18]},
+{n:"PATO TEAM (NO ROOT)",d:[14,30],p:[8,19]},
+{n:"DEATH X SILENT BYPASS (PC)",d:[1,7],p:[12,20]},
+{n:"CUBAN RAGE (PC)",d:[1,7,15,30],p:[3,8,12,20]},
+{n:"BR MODS BYPASS (PC)",d:[1,7,15,30],p:[3,8,12,20]},
 {n:"HG CHEATS ROOT Y NO ROOT",d:[1,10,30],p:[3,12,20]},
 {n:"STRICK BR ROOT",d:[1,7,15,30],p:[3,8,13,19]},
 {n:"BR MODS ROOT",d:[1,7,15,30],p:[3,8,13,19]},
@@ -245,6 +259,21 @@ items:[
 {n:"GBOX",d:[365],p:[10]}
 ]
 };
+
+const STREAMING_DB=[
+{n:"NETFLIX",d:[30],p:[10]},
+{n:"DISNEY+",d:[30],p:[8]},
+{n:"SPOTIFY",d:[30],p:[5]}
+];
+
+const DIAMONDS_DB=[
+{n:"💎 100 + 10 Diamantes",p:1.40},
+{n:"💎 300 + 31 Diamantes",p:3.50},
+{n:"💎 520 + 52 Diamantes",p:5.80},
+{n:"💎 1.080 + 108 Diamantes",p:11.80},
+{n:"💎 2.180 + 218 Diamantes",p:22},
+{n:"💎 5.680 + 560 Diamantes",p:51}
+];
 
 const PAYMENT_DB={
 "ARGENTINA":["SE PUEDE POR LOS BANCOS","Mercado Pago","Transferencia CBU / Alias"],
@@ -370,9 +399,158 @@ document.getElementById("view-store").style.display="none";
 document.getElementById("view-home").style.display="block";
 }
 
+function showStreaming(){
+document.getElementById("view-home").style.display="none";
+let container=document.getElementById("view-store");
+container.style.display="block";
+container.className="fade";
+
+let html=`<h2>CUENTAS STREAMING</h2><div class="grid-prods">
+
+<div class="prod-card">
+<h3>NETFLIX</h3>
+<div class="price-line">1 MES → <b>10 USD</b></div>
+</div>
+
+<div class="prod-card">
+<h3>DISNEY+</h3>
+<div class="price-line">1 MES → <b>8 USD</b></div>
+</div>
+
+<div class="prod-card">
+<h3>SPOTIFY</h3>
+<div class="price-line">1 MES → <b>5 USD</b></div>
+</div>
+
+</div><br><button class="btn" onclick="goHome()">VOLVER</button>`;
+
+container.innerHTML=html;
+}
+
+function showDiamonds(){
+document.getElementById("view-home").style.display="none";
+let container=document.getElementById("view-store");
+container.style.display="block";
+container.className="fade";
+
+let html=`<h2>PRECIOS DE DIAMANTES</h2><div class="grid-prods">
+
+<div class="prod-card">
+<h3>100 DIAMANTES</h3>
+<div class="price-line">PRECIO → <b>1 USD</b></div>
+</div>
+
+<div class="prod-card">
+<h3>310 DIAMANTES</h3>
+<div class="price-line">PRECIO → <b>3 USD</b></div>
+</div>
+
+<div class="prod-card">
+<h3>520 DIAMANTES</h3>
+<div class="price-line">PRECIO → <b>5 USD</b></div>
+</div>
+
+</div><br><button class="btn" onclick="goHome()">VOLVER</button>`;
+
+container.innerHTML=html;
+}
+
+function showSectionCountries(sectionName){
+document.getElementById("view-home").style.display="none";
+let container=document.getElementById("view-store");
+container.style.display="block";
+container.className="fade";
+
+let html=`<h2>SELECCIONA PAIS (${sectionName})</h2><div class="grid-nodes">`;
+
+DB.paises.forEach((p,index)=>{
+html+=`<div class="node-card" onclick="showSectionItems('${sectionName}', ${index})">
+<span style="font-size:3rem;">${p.b}</span><b>${p.n}</b></div>`;
+});
+
+html+=`</div><br><button class="btn" onclick="goHome()">VOLVER</button>`;
+container.innerHTML=html;
+}
+
+function showSectionItems(sectionName,index){
+let country=DB.paises[index];
+let container=document.getElementById("view-store");
+container.className="fade";
+
+let data;
+
+if(sectionName==="STREAMING") data=STREAMING_DB;
+if(sectionName==="DIAMANTES"){
+
+let textCopy=`💎 PRECIOS DIAMANTES EN ${country.n}:\n\n`;
+
+let html=`<h2>DIAMANTES EN ${country.n}</h2>
+<div class="prod-card">`;
+
+DIAMONDS_DB.forEach(item=>{
+let price=item.p * country.t;
+
+html+=`<div class="price-line">
+${item.n} — <b>${price.toLocaleString()} ${country.c}</b>
+</div>`;
+
+textCopy+=`${item.n} — ${price.toLocaleString()} ${country.c}\n`;
+});
+
+html+=`<div class="action-group">
+<button class="btn" onclick="copyDiamondsText(\`${textCopy}\`)">COPIAR TODO</button>
+</div>
+
+<div class="success-msg" id="msg-diamonds">✓ COPIADO</div>
+</div>
+
+<br><button class="btn" onclick="showSectionCountries('DIAMANTES')">VOLVER</button>`;
+
+container.innerHTML=html;
+return;
+}
+
+let html=`<h2>${sectionName} EN ${country.n}</h2><div class="grid-prods">`;
+
+data.forEach(item=>{
+html+=`<div class="prod-card"><h3>${item.n}</h3>`;
+
+item.d.forEach((days,i)=>{
+let price=item.p[i]*country.t;
+
+if(sectionName==="DIAMANTES"){
+html+=`<div class="price-line">PRECIO → <b>${price.toLocaleString()} ${country.c}</b></div>`;
+}else{
+html+=`<div class="price-line">${days} DÍAS → <b>${price.toLocaleString()} ${country.c}</b></div>`;
+}
+
+});
+
+html+=`</div>`;
+});
+
+html+=`</div><br>
+<button class="btn" onclick="showSectionCountries('${sectionName}')">VOLVER</button>`;
+
+container.innerHTML=html;
+}
+
+function showStreaming(){
+showSectionCountries("STREAMING");
+}
+
+function showDiamonds(){
+showSectionCountries("DIAMANTES");
+}
+
+function copyDiamondsText(text){
+navigator.clipboard.writeText(text);
+
+let msg=document.getElementById("msg-diamonds");
+msg.style.opacity="1";
+setTimeout(()=>msg.style.opacity="0",2000);
+}
 </script>
 
 </body>
 </html>
-
-
